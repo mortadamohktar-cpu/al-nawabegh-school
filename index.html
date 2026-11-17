@@ -23,6 +23,89 @@ nav button:active{background:#dcefeb}
 footer{text-align:center;color:#70817e;padding:24px;font-size:13px}
 @media(min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}nav{grid-template-columns:repeat(4,1fr)}}
 </style>
+<style>
+:root {
+  --burgundy: #641F32;
+  --black: #101114;
+  --gold: #C9A34A;
+  --ivory: #F4F0E9;
+}
+
+body {
+  background: var(--black);
+  color: var(--ivory);
+  font-family: Arial, sans-serif;
+}
+
+button {
+  background: var(--burgundy);
+  color: var(--ivory);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 12px 22px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: var(--gold);
+  color: var(--black);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px #C9A34A55;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.gold {
+  color: var(--gold);
+}
+
+.card {
+  background: #1B1B20;
+  border: 1px solid #C9A34A55;
+  border-radius: 16px;
+  transition: 0.3s ease;
+  animation: appear 0.8s ease both;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+}
+
+input {
+  background: #242329;
+  color: var(--ivory);
+  border: 1px solid #C9A34A77;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 12px #C9A34A55;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+}
+</style>
 </head>
 <body>
 <header>
