@@ -250,12 +250,19 @@ transition: all 0.35s ease;
   justify-content: space-between;
   align-items: center;
 }
-
-.card-icon {
-  font-size: 25px;
-  color: var(--gold);
+  .card-icon {
+  font-size: 28px;
+  color: #A87918;
+  filter: drop-shadow(0 0 5px rgba(201, 163, 74, 0.55));
+  transition: all 0.35s ease;
 }
 
+.card:hover .card-icon {
+  transform: scale(1.18) rotate(-5deg);
+  color: #C9A34A;
+  filter: drop-shadow(0 0 10px rgba(201, 163, 74, 0.8));
+} 
+  
 .card h3 {
   font-size: 14px;
   color: #C8C0B8;
