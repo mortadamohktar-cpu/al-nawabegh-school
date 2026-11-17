@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مدرسة النوابغ الخاصة</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f6f5;color:#243b39}
+header{background:#176b63;color:white;padding:22px;text-align:center}
+header h1{margin:0;font-size:24px}
+header p{margin:8px 0 0}
+.container{padding:18px;max-width:1100px;margin:auto}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.card{background:white;border-radius:12px;padding:18px;box-shadow:0 2px 8px #0000000c}
+.card h3{margin:0 0 12px;font-size:15px;color:#54706c}
+.number{font-size:26px;font-weight:bold;color:#176b63}
+nav{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+nav button{border:0;background:white;padding:20px 8px;border-radius:12px;font-size:16px;color:#176b63;box-shadow:0 2px 8px #0000000c}
+nav button:active{background:#dcefeb}
+#content{background:white;border-radius:12px;padding:20px;margin-top:20px;min-height:150px}
+footer{text-align:center;color:#70817e;padding:24px;font-size:13px}
+@media(min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}nav{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header>
+<h1>مدرسة النوابغ الخاصة</h1>
+<p>تربية راشدة وتعليم متكامل</p>
+</header>
+<main class="container">
+<h2>لوحة التحكم الرئيسية</h2>
+<section class="stats">
+<div class="card"><h3>الطلاب</h3><div class="number">0</div></div>
+<div class="card"><h3>المعلمون</h3><div class="number">0</div></div>
+<div class="card"><h3>الفصول</h3><div class="number">0</div></div>
+<div class="card"><h3>الحضور اليوم</h3><div class="number">0</div></div>
+</section>
+<nav>
+<button onclick="openSection('الطلاب')">👨‍🎓 إدارة الطلاب</button>
+<button onclick="openSection('المعلمون')">👨‍🏫 إدارة المعلمين</button>
+<button onclick="openSection('الفصول')">🏫 الفصول الدراسية</button>
+<button onclick="openSection('المواد')">📚 المواد الدراسية</button>
+<button onclick="openSection('الحضور والغياب')">📋 الحضور والغياب</button>
+<button onclick="openSection('الامتحانات')">📝 الامتحانات</button>
+<button onclick="openSection('النتائج')">📊 النتائج</button>
+<button onclick="openSection('الحسابات')">💰 الحسابات</button>
+<button onclick="openSection('الواجبات')">✏️ الواجبات</button>
+<button onclick="openSection('الإعلانات')">📢 الإعلانات</button>
+<button onclick="openSection('أولياء الأمور')">👪 أولياء الأمور</button>
+<button onclick="openSection('التقارير')">📈 التقارير</button>
+</nav>
+<section id="content">
+<h3>مرحباً بك في نظام إدارة مدرسة النوابغ</h3>
+<p>اختر أحد الأقسام للبدء.</p>
+</section>
+</main>
+<footer>مدرسة النوابغ الخاصة © جميع الحقوق محفوظة</footer>
+<script>
+function openSection(name){
+document.getElementById('content').innerHTML=
+'<h3>قسم '+name+'</h3><p>سيتم تجهيز وظائف هذا القسم وربطه بقاعدة البيانات في المراحل القادمة.</p>';
+}
+</script>
+</body>
+</html>
