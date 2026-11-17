@@ -63,5 +63,18 @@ document.getElementById('content').innerHTML=
 '<h3>قسم '+name+'</h3><p>سيتم تجهيز وظائف هذا القسم وربطه بقاعدة البيانات في المراحل القادمة.</p>';
 }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://qpkvytzvmjwjwutveaea.supabase.co";
+const SUPABASE_KEY = "sb_publishable_mCV8JEIP15Ef3VngAPcXOw_hb5nbR8d";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+console.log("تم تجهيز الاتصال بقاعدة بيانات المدرسة");
+</script>
 </body>
 </html>
