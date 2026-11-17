@@ -227,12 +227,13 @@ transition: all 0.35s ease;
   color: #211820 !important;
   font-weight: 700;
 }
-.card:hover {
-  transform: translateY(-5px);
-  border-color: var(--gold);
-  box-shadow: 0 8px 28px #C9A34A18;
-}
-
+  .card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.22),
+    0 0 22px rgba(201, 163, 74, 0.28);
+  border-color: #C9A34A;
+  } 
 .card::after {
   content: "";
   position: absolute;
