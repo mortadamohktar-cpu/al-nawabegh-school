@@ -73,8 +73,20 @@ const supabaseClient = window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
 );
+async function testConnection() {
+    const { data, error } = await supabaseClient
+        .from("classes")
+        .select("id")
+        .limit(1);
 
-console.log("تم تجهيز الاتصال بقاعدة بيانات المدرسة");
+    if (error) {
+        alert("الاتصال لم يكتمل: " + error.message);
+    } else {
+        alert("تم الاتصال بقاعدة بيانات مدرسة النوابغ بنجاح!");
+    }
+}
+
+testConnection(); 
 </script>
 </body>
 </html>
