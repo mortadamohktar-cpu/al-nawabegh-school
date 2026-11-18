@@ -626,7 +626,107 @@
         }
       }
     </style>
-  </head>
+
+<style id="NAWABEGH_AUTH_GATE">
+:root {
+  --burgundy:#A65D70;
+  --burgundy-dark:#814354;
+  --burgundy-soft:#F8EDF0;
+  --gold:#C9A34A;
+  --surface:#FFFFFF;
+  --page:#F7F6F8;
+  --ink:#38343A;
+}
+body {background:var(--page)!important;color:var(--ink)}
+.sidebar {background:#fff!important;border-left:1px solid #eee!important}
+.main {background:var(--page)!important}
+.topbar {background:#fff!important;box-shadow:0 3px 18px #34202b0b}
+.card,.stat-card,.module-card {
+  background:#fff!important;
+  border:1px solid #eee7e9!important;
+  border-radius:18px!important;
+  box-shadow:0 7px 25px #512c3a0b!important;
+  transition:transform .25s,box-shadow .25s
+}
+.card:hover,.stat-card:hover,.module-card:hover {
+  transform:translateY(-3px);
+  box-shadow:0 12px 28px #512c3a16!important
+}
+.menu button.active {
+  background:var(--burgundy-soft)!important;
+  color:var(--burgundy-dark)!important;
+  border-right:3px solid var(--gold)!important
+}
+body:not(.auth-ready) .sidebar,
+body:not(.auth-ready) .main {visibility:hidden!important}
+#loginGate {
+  position:fixed;inset:0;z-index:99999;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;overflow:auto;
+  background:radial-gradient(ellipse at top right,#f4e5e9,transparent 55%),
+             linear-gradient(145deg,#fff,#f7f4f5)
+}
+#loginGate[hidden]{display:none!important}
+.login-panel {
+  width:min(100%,430px);padding:35px 30px;
+  background:#fff;border:1px solid #f0e6e9;
+  border-radius:26px;
+  box-shadow:0 24px 75px #572e3d19;
+  text-align:center;animation:loginAppear .55s ease
+}
+.login-logo {
+  width:76px;height:76px;margin:0 auto 17px;
+  display:grid;place-items:center;border-radius:24px;
+  color:#fff;font-size:35px;font-weight:900;
+  background:linear-gradient(145deg,#C17B8D,#91485E);
+  border:3px solid #ead7a9;
+  box-shadow:0 9px 24px #a65d7030
+}
+.login-title {font-size:25px;font-weight:800;color:#87485b;margin:0 0 7px}
+.login-subtitle {font-size:13px;color:#888;margin-bottom:27px}
+.login-field {text-align:right;margin:17px 0}
+.login-field label {display:block;font-size:13px;font-weight:700;margin-bottom:8px;color:#55464b}
+.login-field input {
+  width:100%;height:49px;padding:0 14px;
+  border:1px solid #e8dfe2;border-radius:12px;
+  background:#fcfafb;font-size:15px;outline:none;
+  box-sizing:border-box;direction:ltr;text-align:left
+}
+.login-field input:focus {
+  border-color:#b67587;box-shadow:0 0 0 3px #a65d7017
+}
+#loginSubmit {
+  width:100%;height:51px;margin-top:13px;border:0;
+  border-radius:13px;color:#fff;font-size:16px;font-weight:800;
+  background:linear-gradient(110deg,#A65D70,#814354);
+  box-shadow:0 8px 20px #a65d7030;cursor:pointer;
+  transition:.2s
+}
+#loginSubmit:active {transform:scale(.98)}
+#loginSubmit:disabled {opacity:.65;cursor:wait}
+#loginError {
+  display:none;margin-top:15px;padding:11px;
+  border-radius:10px;background:#fff0f0;color:#a33340;
+  font-size:13px;line-height:1.7
+}
+.login-footer {margin-top:25px;color:#999;font-size:11px}
+.login-footer span {color:#b18b39}
+@keyframes loginAppear {
+  from {opacity:0;transform:translateY(15px)}
+  to {opacity:1;transform:translateY(0)}
+}
+.auth-logout {
+  display:block;width:calc(100% - 24px);margin:15px 12px;
+  padding:12px;border:1px solid #f0dfe4;border-radius:12px;
+  background:#fff5f7;color:#984e63;font-weight:700;cursor:pointer
+}
+@media(max-width:480px){
+  .login-panel{padding:29px 21px;border-radius:22px}
+  .login-title{font-size:22px}
+}
+</style>
+
+</head>
 
   <body>
     <div class="app">
@@ -839,5 +939,135 @@
 
       console.log("تم تجهيز اتصال قاعدة بيانات مدرسة النوابغ");
     </script>
-  </body>
+
+<section id="loginGate" dir="rtl">
+  <div class="login-panel">
+    <div class="login-logo">ن</div>
+    <h1 class="login-title">مدرسة النوابغ الخاصة</h1>
+    <div class="login-subtitle">نظام الإدارة المدرسية الذكي</div>
+    <form id="schoolLoginForm">
+      <div class="login-field">
+        <label for="loginEmail">البريد الإلكتروني</label>
+        <input id="loginEmail" type="email" autocomplete="username"
+          placeholder="أدخل البريد الإلكتروني" required>
+      </div>
+      <div class="login-field">
+        <label for="loginPassword">كلمة المرور</label>
+        <input id="loginPassword" type="password"
+          autocomplete="current-password" placeholder="أدخل كلمة المرور" required>
+      </div>
+      <button id="loginSubmit" type="submit">تسجيل الدخول</button>
+      <div id="loginError" role="alert"></div>
+    </form>
+    <div class="login-footer">تربية راشدة و تعليم متكامل <span>✦</span></div>
+  </div>
+</section>
+
+<script id="NAWABEGH_AUTH_SCRIPT">
+(function () {
+  const gate = document.getElementById("loginGate");
+  const form = document.getElementById("schoolLoginForm");
+  const submit = document.getElementById("loginSubmit");
+  const errorBox = document.getElementById("loginError");
+  const sidebar = document.getElementById("sidebar");
+  const main = document.querySelector(".main");
+
+  function showLogin(message) {
+    document.body.classList.remove("auth-ready");
+    gate.hidden = false;
+    if (sidebar) sidebar.style.display = "none";
+    if (main) main.style.display = "none";
+    errorBox.textContent = message || "";
+    errorBox.style.display = message ? "block" : "none";
+  }
+
+  function showDashboard(profile) {
+    gate.hidden = true;
+    if (sidebar) sidebar.style.removeProperty("display");
+    if (main) main.style.removeProperty("display");
+    document.body.classList.add("auth-ready");
+
+    if (sidebar && !document.getElementById("schoolLogout")) {
+      const btn = document.createElement("button");
+      btn.id = "schoolLogout";
+      btn.className = "auth-logout";
+      btn.textContent = "تسجيل الخروج";
+      btn.onclick = async function () {
+        btn.disabled = true;
+        const { error } = await supabaseClient.auth.signOut();
+        if (error) {
+          btn.disabled = false;
+          alert("تعذر تسجيل الخروج: " + error.message);
+        }
+      };
+      sidebar.appendChild(btn);
+    }
+
+    console.log("تم التحقق من المستخدم وصلاحياته:", profile.role);
+  }
+
+  async function verifyUser(user) {
+    if (!user) {
+      showLogin();
+      return;
+    }
+
+    const { data, error } = await supabaseClient
+      .from("profiles")
+      .select("id, full_name, role")
+      .eq("id", user.id)
+      .single();
+
+    const allowedRoles = ["admin", "deputy", "teacher", "accountant", "parent"];
+
+    if (error || !data || !allowedRoles.includes(data.role)) {
+      await supabaseClient.auth.signOut();
+      showLogin("هذا الحساب غير مسجل في النظام أو لم تُحدد له صلاحية. راجع مدير المدرسة.");
+      return;
+    }
+
+    showDashboard(data);
+  }
+
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    errorBox.style.display = "none";
+    submit.disabled = true;
+    submit.textContent = "جارٍ التحقق...";
+
+    try {
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value;
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (error) throw error;
+      await verifyUser(data.user);
+    } catch (error) {
+      showLogin("تعذر تسجيل الدخول. تحقق من البريد الإلكتروني وكلمة المرور، ثم حاول مجدداً.");
+    } finally {
+      submit.disabled = false;
+      submit.textContent = "تسجيل الدخول";
+    }
+  });
+
+  if (!window.supabase || typeof supabaseClient === "undefined") {
+    showLogin("تعذر الاتصال بخدمة تسجيل الدخول. تحقق من اتصال الإنترنت.");
+    return;
+  }
+
+  showLogin();
+
+  supabaseClient.auth.onAuthStateChange(function (event, session) {
+    Promise.resolve().then(function () {
+      return verifyUser(session && session.user);
+    });
+  });
+})();
+</script>
+
+</body>
 </html>
