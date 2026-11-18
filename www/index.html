@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مدرسة النوابغ الخاصة</title>
+
+<style>
+:root {
+  --burgundy: #641F32;
+  --burgundy-light: #812D45;
+  --black: #101114;
+  --panel: #19191E;
+  --panel-light: #222127;
+  --gold: #C9A34A;
+  --ivory: #F4F0E9;
+  --muted: #AAA4A0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--black);
+  color: var(--ivory);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* القائمة الجانبية */
+
+.sidebar {
+  width: 250px;
+  background: #151519;
+  border-left: 1px solid #C9A34A33;
+  padding: 25px 15px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  overflow-y: auto;
+  transition: transform .35s ease;
+}
+
+.brand {
+  text-align: center;
+  padding: 10px 5px 25px;
+  border-bottom: 1px solid #C9A34A33;
+}
+
+.logo {
+  width: 66px;
+  height: 66px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  margin: auto auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 29px;
+  background: #641F3222;
+  box-shadow: 0 0 20px #C9A34A22;
+}
+
+.brand h2 {
+  font-size: 18px;
+  margin: 8px 0;
+  color: var(--gold);
+}
+
+.brand p {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.8;
+}
+
+.menu-title {
+  color: var(--gold);
+  font-size: 12px;
+  margin: 25px 12px 12px;
+}
+
+.menu button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #D7D0C9;
+  padding: 13px 14px;
+  border-radius: 10px;
+  text-align: right;
+  font-size: 14px;
+  margin-bottom: 5px;
+  transition: .25s ease;
+}
+
+.menu button:hover,
+.menu button.active {
+  background: linear-gradient(90deg, #641F3233, #641F3288);
+  color: var(--gold);
+  transform: translateX(-3px);
+  border-right: 3px solid var(--gold);
+}
+
+.menu button span:first-child {
+  font-size: 19px;
+}
+
+/* المحتوى الرئيسي */
+
+.main {
+  width: calc(100% - 250px);
+  margin-right: 250px;
+  padding: 25px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  background: var(--panel);
+  padding: 17px 22px;
+  border: 1px solid #C9A34A22;
+  border-radius: 15px;
+  margin-bottom: 28px;
+  box-shadow: 0 8px 25px #00000033;
+}
+
+.topbar h2 {
+  margin: 0;
+  font-size: 19px;
+  color: var(--ivory);
+}
+
+.topbar p {
+  color: var(--muted);
+  margin: 7px 0 0;
+  font-size: 12px;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-label {
+  color: var(--gold);
+  font-size: 13px;
+}
+
+.menu-toggle {
+  display: none;
+  background: var(--burgundy);
+  color: white;
+  border: 1px solid var(--gold);
+  padding: 9px 13px;
+  border-radius: 9px;
+  font-size: 20px;
+}
+
+.welcome {
+  margin-bottom: 25px;
+  animation: appear .7s ease both;
+}
+
+.welcome h1 {
+  font-size: 25px;
+  margin: 0 0 10px;
+  color: var(--gold);
+}
+
+.welcome p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* البطاقات الإحصائية */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 17px;
+}
+
+.card {
+  background: rgba(235, 231, 224, 0.94);
+  color: #252126;
+  border: 1px solid rgba(201, 163, 74, 0.35);
+  border-radius: 15px;
+  padding: 21px;
+  position: relative;
+  overflow: hidden;
+  transition: .3s ease;
+  animation: appear .7s ease both;
+  box-shadow:
+  0 8px 25px rgba(0, 0, 0, 0.18),
+  0 0 15px rgba(201, 163, 74, 0.10);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
+transition: all 0.35s ease;
+}
+.card,
+.card h1,
+.card h2,
+.card h3,
+.card p,
+.card span {
+  color: #211820 !important;
+  font-weight: 700;
+}
+  .card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 14px 35px rgba(0, 0, 0, 0.22),
+    0 0 22px rgba(201, 163, 74, 0.28);
+  border-color: #C9A34A;
+  } 
+.card::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #C9A34A0D;
+  left: -20px;
+  bottom: -25px;
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+  .card-icon {
+  font-size: 28px;
+  color: #A87918;
+  filter: drop-shadow(0 0 5px rgba(201, 163, 74, 0.55));
+  transition: all 0.35s ease;
+}
+
+.card:hover .card-icon {
+  transform: scale(1.18) rotate(-5deg);
+  color: #C9A34A;
+  filter: drop-shadow(0 0 10px rgba(201, 163, 74, 0.8));
+} 
+  
+.card h3 {
+  font-size: 14px;
+  color: #C8C0B8;
+  margin: 15px 0 10px;
+}
+
+.number {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--gold);
+}
+
+/* الأقسام */
+
+.section-heading {
+  margin: 32px 0 17px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-heading h2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.section-heading::before {
+  content: "";
+  width: 4px;
+  height: 22px;
+  background: var(--gold);
+  border-radius: 5px;
+}
+
+.modules {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.module {
+  background: var(--panel);
+  border: 1px solid #C9A34A33;
+  color: var(--ivory);
+  border-radius: 13px;
+  padding: 20px 10px;
+  text-align: center;
+  font-size: 14px;
+  transition: .3s ease;
+}
+
+.module .icon {
+  display: block;
+  font-size: 27px;
+  margin-bottom: 12px;
+}
+
+.module:hover {
+  background: var(--burgundy);
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 5px 20px #C9A34A22;
+}
+
+#content {
+  background: var(--panel);
+  border: 1px solid #C9A34A33;
+  border-radius: 15px;
+  padding: 24px;
+  margin-top: 25px;
+  min-height: 130px;
+  animation: appear .5s ease;
+}
+
+#content h3 {
+  color: var(--gold);
+}
+
+#content p {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 30px 10px;
+  margin-top: 25px;
+  border-top: 1px solid #C9A34A22;
+}
+
+.overlay {
+  display: none;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* تصميم الهاتف */
+
+@media (max-width: 900px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modules {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 650px) {
+  .sidebar {
+    transform: translateX(105%);
+    width: 270px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main {
+    width: 100%;
+    margin: 0;
+    padding: 13px;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .topbar {
+    padding: 13px;
+  }
+
+  .topbar h2 {
+    font-size: 15px;
+  }
+
+  .admin-label {
+    display: none;
+  }
+
+  .welcome h1 {
+    font-size: 21px;
+  }
+
+  .stats {
+    gap: 10px;
+  }
+
+  .card {
+    padding: 16px 12px;
+  }
+
+  .number {
+    font-size: 25px;
+  }
+
+  .modules {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .overlay.show {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: #00000099;
+    z-index: 90;
+  }
+}
+
+/* ===== التموجات الضوئية الفاخرة ===== */
+body {
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -30%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 15% 25%, rgba(100, 31, 50, 0.48), transparent 38%),
+    radial-gradient(ellipse at 80% 70%, rgba(201, 163, 74, 0.20), transparent 35%),
+    radial-gradient(ellipse at 55% 45%, rgba(100, 31, 50, 0.20), transparent 45%);
+  filter: blur(45px);
+  animation: waveDrift 22s ease-in-out infinite alternate;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes waveDrift {
+  0% {
+    transform: translate3d(-2%, -1%, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 2%, 0) rotate(8deg) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-1%, 3%, 0) rotate(-6deg) scale(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+  
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<aside class="sidebar" id="sidebar">
+  <div class="brand">
+    <div class="logo">✦</div>
+    <h2>مدرسة النوابغ الخاصة</h2>
+    <p>تربية راشدة وتعليم متكامل</p>
+  </div>
+
+  <div class="menu-title">القائمة الرئيسية</div>
+
+  <nav class="menu">
+    <button class="active" onclick="openSection('الرئيسية',this)">
+      <span>⌂</span> الرئيسية
+    </button>
+    <button onclick="openSection('الطلاب',this)">
+      <span>👨‍🎓</span> إدارة الطلاب
+    </button>
+    <button onclick="openSection('المعلمون',this)">
+      <span>👨‍🏫</span> إدارة المعلمين
+    </button>
+    <button onclick="openSection('الفصول',this)">
+      <span>🏫</span> الفصول الدراسية
+    </button>
+    <button onclick="openSection('المواد',this)">
+      <span>📚</span> المواد الدراسية
+    </button>
+    <button onclick="openSection('الحضور والغياب',this)">
+      <span>📋</span> الحضور والغياب
+    </button>
+    <button onclick="openSection('الامتحانات',this)">
+      <span>📝</span> الامتحانات
+    </button>
+    <button onclick="openSection('النتائج',this)">
+      <span>📊</span> النتائج
+    </button>
+    <button onclick="openSection('الحسابات',this)">
+      <span>💰</span> الحسابات
+    </button>
+    <button onclick="openSection('الواجبات',this)">
+      <span>✏️</span> الواجبات
+    </button>
+    <button onclick="openSection('الإعلانات',this)">
+      <span>📢</span> الإعلانات
+    </button>
+    <button onclick="openSection('أولياء الأمور',this)">
+      <span>👪</span> أولياء الأمور
+    </button>
+    <button onclick="openSection('التقارير',this)">
+      <span>📈</span> التقارير
+    </button>
+  </nav>
+</aside>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<main class="main">
+
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div>
+        <h2>نظام إدارة المدرسة</h2>
+        <p>لوحة الإدارة والتحكم</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span class="admin-label">✦ الإدارة المدرسية</span>
+    </div>
+  </header>
+
+  <section class="welcome">
+    <h1>مرحباً بك في مدرسة النوابغ</h1>
+    <p>منظومة إدارية متكاملة لتنظيم ومتابعة شؤون المدرسة.</p>
+  </section>
+
+  <section class="stats">
+    <div class="card">
+      <div class="card-top">
+        <span class="card-icon">👨‍🎓</span>
+        <span class="gold">01</span>
+      </div>
+      <h3>إجمالي الطلاب</h3>
+      <div class="number">0</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-icon">👨‍🏫</span>
+        <span class="gold">02</span>
+      </div>
+      <h3>إجمالي المعلمين</h3>
+      <div class="number">0</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-icon">🏫</span>
+        <span class="gold">03</span>
+      </div>
+      <h3>الفصول الدراسية</h3>
+      <div class="number">0</div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="card-icon">📋</span>
+        <span class="gold">04</span>
+      </div>
+      <h3>الحضور اليوم</h3>
+      <div class="number">0</div>
+    </div>
+  </section>
+
+  <div class="section-heading">
+    <h2>أقسام النظام</h2>
+  </div>
+
+  <section class="modules">
+    <button class="module" onclick="openSection('الطلاب')">
+      <span class="icon">👨‍🎓</span>إدارة الطلاب
+    </button>
+    <button class="module" onclick="openSection('المعلمون')">
+      <span class="icon">👨‍🏫</span>إدارة المعلمين
+    </button>
+    <button class="module" onclick="openSection('الفصول')">
+      <span class="icon">🏫</span>الفصول الدراسية
+    </button>
+    <button class="module" onclick="openSection('المواد')">
+      <span class="icon">📚</span>المواد الدراسية
+    </button>
+    <button class="module" onclick="openSection('الحضور والغياب')">
+      <span class="icon">📋</span>الحضور والغياب
+    </button>
+    <button class="module" onclick="openSection('الامتحانات')">
+      <span class="icon">📝</span>الامتحانات
+    </button>
+    <button class="module" onclick="openSection('النتائج')">
+      <span class="icon">📊</span>النتائج
+    </button>
+    <button class="module" onclick="openSection('الحسابات')">
+      <span class="icon">💰</span>الحسابات
+    </button>
+    <button class="module" onclick="openSection('الواجبات')">
+      <span class="icon">✏️</span>الواجبات
+    </button>
+    <button class="module" onclick="openSection('الإعلانات')">
+      <span class="icon">📢</span>الإعلانات
+    </button>
+    <button class="module" onclick="openSection('أولياء الأمور')">
+      <span class="icon">👪</span>أولياء الأمور
+    </button>
+    <button class="module" onclick="openSection('التقارير')">
+      <span class="icon">📈</span>التقارير
+    </button>
+  </section>
+
+  <section id="content">
+    <h3>مرحباً بك في لوحة التحكم</h3>
+    <p>اختر أحد أقسام النظام للبدء.</p>
+  </section>
+
+  <footer>
+    مدرسة النوابغ الخاصة © جميع الحقوق محفوظة
+    <br><br>
+    تربية راشدة وتعليم متكامل
+  </footer>
+
+</main>
+</div>
+
+<script>
+function toggleSidebar() {
+  document.getElementById("sidebar").classList.toggle("open");
+  document.getElementById("overlay").classList.toggle("show");
+}
+
+function openSection(name, button) {
+  document.getElementById("content").innerHTML =
+    "<h3>قسم " + name + "</h3>" +
+    "<p>سيتم تجهيز وظائف هذا القسم وربطه بقاعدة بيانات المدرسة في المرحلة القادمة.</p>";
+
+  document.querySelectorAll(".menu button").forEach(function(item) {
+    item.classList.remove("active");
+  });
+
+  if (button) {
+    button.classList.add("active");
+  }
+
+  if (window.innerWidth <= 650) {
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("overlay").classList.remove("show");
+  }
+}
+</script>
+
+<!-- اتصال قاعدة بيانات Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://qpkvytzvmjwjwutveaea.supabase.co";
+const SUPABASE_KEY = "sb_publishable_mCV8JEIP15Ef3VngAPcXOw_hb5nbR8d";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+console.log("تم تجهيز اتصال قاعدة بيانات مدرسة النوابغ");
+</script>
+
+</body>
+</html>
