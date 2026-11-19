@@ -1443,14 +1443,43 @@ window.showToast = function (message, type = "info") {
 
 window.formatArabicDate = function (date = new Date()) {
   try {
-    return new Intl.DateTimeFormat("ar-EG", {
+    return new Intl.DateTimeFormat("ar-SD", {
+      timeZone: "Africa/Khartoum",
       weekday: "long",
       year: "numeric",
       month: "long",
       day: "numeric"
     }).format(date);
   } catch (e) {
-    return date.toLocaleDateString("ar-EG");
+    try {
+      return new Intl.DateTimeFormat("ar", {
+        timeZone: "Africa/Khartoum",
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      }).format(date);
+    } catch (e2) {
+      return date.toLocaleDateString("ar-EG");
+    }
+  }
+};
+
+window.getKhartoumDateString = function (date = new Date()) {
+  try {
+    const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: "Africa/Khartoum",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit"
+    }).formatToParts(date);
+    const y = parts.find(function (p) { return p.type === "year"; }).value;
+    const m = parts.find(function (p) { return p.type === "month"; }).value;
+    const d = parts.find(function (p) { return p.type === "day"; }).value;
+    return y + "-" + m + "-" + d;
+  } catch (e) {
+    const d = new Date(date.getTime() + (2 * 60 * 60 * 1000));
+    return d.toISOString().split("T")[0];
   }
 };
 
@@ -1511,7 +1540,7 @@ window.loadDashboardStats = async function (isManual = false) {
     if (el) el.innerHTML = '<span class="stat-spinner"></span>';
   });
 
-  const todayStr = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const todayStr = window.getKhartoumDateString(); // YYYY-MM-DD بتوقيت الخرطوم (Africa/Khartoum)
 
   try {
     const [studentsRes, teachersRes, classesRes, attendanceRes] = await Promise.allSettled([
@@ -1600,11 +1629,18 @@ window.loadDashboardAnnouncements = async function () {
     container.innerHTML = data
       .map(function (item) {
         const dateFormatted = item.created_at
-          ? new Date(item.created_at).toLocaleDateString("ar-EG", {
-              year: "numeric",
-              month: "short",
-              day: "numeric"
-            })
+          ? (function () {
+              try {
+                return new Intl.DateTimeFormat("ar-SD", {
+                  timeZone: "Africa/Khartoum",
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric"
+                }).format(new Date(item.created_at));
+              } catch (e) {
+                return new Date(item.created_at).toLocaleDateString("ar-EG");
+              }
+            })()
           : "اليوم";
 
         const audienceBadge = item.target_audience
