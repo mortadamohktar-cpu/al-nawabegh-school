@@ -726,6 +726,279 @@ body:not(.auth-ready) .main {visibility:hidden!important}
 }
 </style>
 
+<style id="NAWABEGH_DASHBOARD_STYLES">
+/* ===== تنسيقات لوحة المدير الرئيسية والهوية المعتمدة ===== */
+.toast-container {
+  position: fixed;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  width: min(92vw, 420px);
+}
+.toast-item {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #ffffff;
+  padding: 14px 18px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(100, 31, 50, 0.16);
+  border: 1px solid #eee5e7;
+  border-right: 4px solid #a65d70;
+  color: #38343a;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.toast-item.toast-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.toast-item.toast-success {
+  border-right-color: #2e8b57;
+}
+.toast-item.toast-success .toast-icon {
+  background: #eafaf1;
+  color: #2e8b57;
+}
+.toast-item.toast-error {
+  border-right-color: #c4475a;
+}
+.toast-item.toast-error .toast-icon {
+  background: #fdf0f2;
+  color: #c4475a;
+}
+.toast-item.toast-warning {
+  border-right-color: #c9a34a;
+}
+.toast-item.toast-warning .toast-icon {
+  background: #fbf7ee;
+  color: #c9a34a;
+}
+.toast-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  flex-shrink: 0;
+  background: #f8edf0;
+  color: #a65d70;
+}
+.toast-message {
+  line-height: 1.5;
+}
+
+.top-user-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8edf0;
+  border: 1px solid #eedee2;
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: #814354;
+  font-size: 13px;
+  font-weight: 700;
+}
+.date-badge {
+  color: #777777;
+  font-size: 12px;
+  margin-top: 3px;
+  display: block;
+}
+.welcome-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  background: linear-gradient(135deg, #ffffff, #fbf5f6) !important;
+  border: 1px solid #eadde1;
+  border-radius: 20px;
+  padding: 22px 24px;
+  margin-bottom: 25px;
+  box-shadow: 0 8px 25px rgba(100, 31, 50, 0.08);
+}
+.welcome-content h1 {
+  font-size: 24px;
+  margin: 0 0 6px;
+  color: #a65d70 !important;
+}
+.welcome-content p {
+  color: #777777 !important;
+  margin: 0;
+  font-size: 14px;
+}
+.btn-refresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1.5px solid #c9a34a;
+  color: #814354;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(100, 31, 50, 0.08);
+  transition: all 0.25s ease;
+}
+.btn-refresh:hover {
+  background: #f8edf0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(100, 31, 50, 0.14);
+}
+.btn-refresh.loading .refresh-icon {
+  display: inline-block;
+  animation: statSpin 0.7s linear infinite;
+}
+.stat-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(166, 93, 112, 0.2);
+  border-top-color: #a65d70;
+  border-radius: 50%;
+  animation: statSpin 0.8s linear infinite;
+}
+@keyframes statSpin {
+  to { transform: rotate(360deg); }
+}
+.stat-error {
+  color: #c4475a;
+  font-size: 26px;
+  font-weight: bold;
+}
+.announcements-container {
+  margin-top: 25px;
+}
+.announcements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+.announcement-card {
+  background: #ffffff;
+  border: 1px solid #eee5e7;
+  border-right: 4px solid #c9a34a;
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 6px 20px rgba(100, 31, 50, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.announcement-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(100, 31, 50, 0.12);
+}
+.announcement-card-header {
+  margin-bottom: 10px;
+}
+.announcement-card-header h4 {
+  margin: 0 0 6px;
+  color: #814354;
+  font-size: 16px;
+  font-weight: 800;
+}
+.announcement-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #888888;
+}
+.audience-badge {
+  background: #f8edf0;
+  color: #984f64;
+  padding: 3px 9px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.announcement-content {
+  margin: 0;
+  color: #555555;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+.announcement-empty,
+.announcement-error {
+  background: #ffffff;
+  border: 1px dashed #eadde1;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  color: #777777;
+  font-size: 14px;
+}
+.btn-retry {
+  margin-right: 10px;
+  background: #a65d70;
+  color: #ffffff;
+  border: 0;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* التجاوب ودعم الشاشات وهاتف HONOR 200 */
+@media (max-width: 768px) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .stats {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+  }
+  .card {
+    padding: 16px 14px !important;
+  }
+  .number {
+    font-size: 25px !important;
+  }
+  .welcome-container {
+    padding: 18px 16px;
+  }
+  .welcome-content h1 {
+    font-size: 20px;
+  }
+  .announcements-grid {
+    grid-template-columns: 1fr;
+  }
+  .top-user-badge {
+    display: none;
+  }
+}
+@media (max-width: 420px) {
+  .main {
+    padding: 10px !important;
+  }
+  .card {
+    padding: 14px 10px !important;
+  }
+  .card h3 {
+    font-size: 12.5px;
+  }
+  .number {
+    font-size: 22px !important;
+  }
+}
+</style>
+
 </head>
 
   <body>
@@ -790,54 +1063,76 @@ body:not(.auth-ready) .main {visibility:hidden!important}
             <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
             <div>
               <h2>نظام إدارة المدرسة</h2>
-              <p>لوحة الإدارة والتحكم</p>
+              <span id="dashboardDate" class="date-badge"></span>
             </div>
           </div>
           <div class="top-actions">
-            <span class="admin-label">✦ الإدارة المدرسية</span>
+            <div id="topUserBadge" class="top-user-badge">
+              <span>✦</span>
+              <span id="adminUserName">الإدارة المدرسية</span>
+              <span id="adminUserRole" style="opacity: 0.8; font-weight: normal;"></span>
+            </div>
           </div>
         </header>
 
-        <section class="welcome">
-          <h1>مرحباً بك في مدرسة النوابغ</h1>
-          <p>منظومة إدارية متكاملة لتنظيم ومتابعة شؤون المدرسة.</p>
+        <section class="welcome-container" id="welcomeSection">
+          <div class="welcome-content">
+            <h1 id="welcomeGreeting">مرحباً بك في مدرسة النوابغ</h1>
+            <p id="welcomeSub">منظومة إدارية متكاملة لتنظيم ومتابعة شؤون المدرسة.</p>
+          </div>
+          <div class="welcome-actions">
+            <button id="refreshStatsBtn" class="btn-refresh" onclick="refreshDashboardStats(true)">
+              <span class="refresh-icon">🔄</span>
+              <span>تحديث الإحصائيات</span>
+            </button>
+          </div>
         </section>
 
-        <section class="stats">
-          <div class="card">
+        <section class="stats" id="dashboardStats">
+          <div class="card" id="card-students">
             <div class="card-top">
               <span class="card-icon">👨‍🎓</span>
               <span class="gold">01</span>
             </div>
             <h3>إجمالي الطلاب</h3>
-            <div class="number">0</div>
+            <div class="number" id="statStudentsCount"><span class="stat-spinner"></span></div>
           </div>
 
-          <div class="card">
+          <div class="card" id="card-teachers">
             <div class="card-top">
               <span class="card-icon">👨‍🏫</span>
               <span class="gold">02</span>
             </div>
             <h3>إجمالي المعلمين</h3>
-            <div class="number">0</div>
+            <div class="number" id="statTeachersCount"><span class="stat-spinner"></span></div>
           </div>
 
-          <div class="card">
+          <div class="card" id="card-classes">
             <div class="card-top">
               <span class="card-icon">🏫</span>
               <span class="gold">03</span>
             </div>
             <h3>الفصول الدراسية</h3>
-            <div class="number">0</div>
+            <div class="number" id="statClassesCount"><span class="stat-spinner"></span></div>
           </div>
 
-          <div class="card">
+          <div class="card" id="card-attendance">
             <div class="card-top">
               <span class="card-icon">📋</span>
               <span class="gold">04</span>
             </div>
-            <h3>الحضور اليوم</h3>
-            <div class="number">0</div>
+            <h3>سجلات الغياب اليوم</h3>
+            <div class="number" id="statAttendanceCount"><span class="stat-spinner"></span></div>
+          </div>
+        </section>
+
+        <!-- آخر الإعلانات والتعاميم المدرسية -->
+        <section class="announcements-container" id="dashboardAnnouncements">
+          <div class="section-heading">
+            <h2>📢 آخر الإعلانات والتعاميم المدرسية</h2>
+          </div>
+          <div class="announcements-grid" id="announcementsList">
+            <div class="announcement-empty">جارٍ تحميل الإعلانات...</div>
           </div>
         </section>
 
@@ -904,11 +1199,33 @@ body:not(.auth-ready) .main {visibility:hidden!important}
       }
 
       function openSection(name, button) {
-        document.getElementById("content").innerHTML =
-          "<h3>قسم " +
-          name +
-          "</h3>" +
-          "<p>سيتم تجهيز وظائف هذا القسم وربطه بقاعدة بيانات المدرسة في المرحلة القادمة.</p>";
+        const statsSection = document.getElementById("dashboardStats");
+        const welcomeSection = document.getElementById("welcomeSection");
+        const announcementsSection = document.getElementById("dashboardAnnouncements");
+        const modulesSection = document.querySelector(".modules");
+        const headingSections = document.querySelectorAll(".section-heading");
+
+        if (name === "الرئيسية") {
+          if (statsSection) statsSection.style.display = "";
+          if (welcomeSection) welcomeSection.style.display = "";
+          if (announcementsSection) announcementsSection.style.display = "";
+          if (modulesSection) modulesSection.style.display = "";
+          headingSections.forEach(function (h) { h.style.display = ""; });
+
+          document.getElementById("content").innerHTML =
+            "<h3>مرحباً بك في لوحة التحكم</h3>" +
+            "<p>اختر أحد أقسام النظام للبدء.</p>";
+
+          if (window.loadDashboardStats) {
+            window.loadDashboardStats(false);
+          }
+        } else {
+          document.getElementById("content").innerHTML =
+            "<h3>قسم " +
+            name +
+            "</h3>" +
+            "<p>سيتم تجهيز وظائف هذا القسم وربطه بقاعدة بيانات المدرسة في المرحلة القادمة.</p>";
+        }
 
         document.querySelectorAll(".menu button").forEach(function (item) {
           item.classList.remove("active");
@@ -1004,6 +1321,10 @@ body:not(.auth-ready) .main {visibility:hidden!important}
     }
 
     console.log("تم التحقق من المستخدم وصلاحياته:", profile.role);
+
+    if (window.initAdminDashboard) {
+      window.initAdminDashboard(profile);
+    }
   }
 
   async function verifyUser(user) {
@@ -1067,6 +1388,257 @@ body:not(.auth-ready) .main {visibility:hidden!important}
     });
   });
 })();
+</script>
+
+<script id="NAWABEGH_DASHBOARD_SCRIPT">
+// ===== وظائف لوحة المدير والإحصائيات الحية =====
+window.currentUserProfile = null;
+
+window.escapeHtml = function (str) {
+  if (typeof str !== "string") return str || "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+};
+
+window.showToast = function (message, type = "info") {
+  let container = document.getElementById("toastContainer");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "toastContainer";
+    container.className = "toast-container";
+    document.body.appendChild(container);
+  }
+
+  const icons = {
+    success: "✓",
+    error: "✕",
+    warning: "⚠",
+    info: "✦"
+  };
+
+  const toast = document.createElement("div");
+  toast.className = `toast-item toast-${type}`;
+  toast.innerHTML = `
+    <span class="toast-icon">${icons[type] || "✦"}</span>
+    <span class="toast-message">${window.escapeHtml(message)}</span>
+  `;
+
+  container.appendChild(toast);
+
+  requestAnimationFrame(function () {
+    toast.classList.add("toast-show");
+  });
+
+  setTimeout(function () {
+    toast.classList.remove("toast-show");
+    setTimeout(function () {
+      if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 350);
+  }, 3500);
+};
+
+window.formatArabicDate = function (date = new Date()) {
+  try {
+    return new Intl.DateTimeFormat("ar-EG", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }).format(date);
+  } catch (e) {
+    return date.toLocaleDateString("ar-EG");
+  }
+};
+
+window.ARABIC_ROLES = {
+  admin: "مدير النظام",
+  deputy: "وكيل المدرسة",
+  teacher: "معلم",
+  accountant: "المحاسب المالي",
+  parent: "ولي أمر"
+};
+
+window.initAdminDashboard = function (profile) {
+  window.currentUserProfile = profile;
+
+  // 1. عرض الاسم والصلاحية والتاريخ
+  const dateEl = document.getElementById("dashboardDate");
+  if (dateEl) {
+    dateEl.textContent = formatArabicDate();
+  }
+
+  const nameEl = document.getElementById("adminUserName");
+  if (nameEl) {
+    nameEl.textContent = profile.full_name || "مستخدم النظام";
+  }
+
+  const roleEl = document.getElementById("adminUserRole");
+  if (roleEl) {
+    roleEl.textContent = "(" + (ARABIC_ROLES[profile.role] || profile.role) + ")";
+  }
+
+  const greetingEl = document.getElementById("welcomeGreeting");
+  if (greetingEl && profile.full_name) {
+    greetingEl.textContent = "مرحباً بك، " + profile.full_name;
+  }
+
+  // 2. تحميل الإحصائيات والإعلانات
+  window.loadDashboardStats(false);
+  window.loadDashboardAnnouncements();
+};
+
+window.refreshDashboardStats = function (isManual = true) {
+  window.loadDashboardStats(isManual);
+  window.loadDashboardAnnouncements();
+};
+
+window.loadDashboardStats = async function (isManual = false) {
+  const refreshBtn = document.getElementById("refreshStatsBtn");
+  if (refreshBtn) refreshBtn.classList.add("loading");
+
+  const statEls = {
+    students: document.getElementById("statStudentsCount"),
+    teachers: document.getElementById("statTeachersCount"),
+    classes: document.getElementById("statClassesCount"),
+    attendance: document.getElementById("statAttendanceCount")
+  };
+
+  Object.values(statEls).forEach(function (el) {
+    if (el) el.innerHTML = '<span class="stat-spinner"></span>';
+  });
+
+  const todayStr = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+
+  try {
+    const [studentsRes, teachersRes, classesRes, attendanceRes] = await Promise.allSettled([
+      supabaseClient.from("students").select("id", { count: "exact", head: true }),
+      supabaseClient.from("teachers").select("id", { count: "exact", head: true }),
+      supabaseClient.from("classes").select("id", { count: "exact", head: true }),
+      supabaseClient.from("attendance").select("id", { count: "exact", head: true }).eq("absence_date", todayStr)
+    ]);
+
+    // إجمالي الطلاب
+    if (studentsRes.status === "fulfilled" && !studentsRes.value.error) {
+      const count = studentsRes.value.count ?? 0;
+      if (statEls.students) statEls.students.textContent = count.toLocaleString("ar-EG");
+    } else {
+      if (statEls.students) statEls.students.innerHTML = '<span class="stat-error" title="فشل التحميل">—</span>';
+    }
+
+    // إجمالي المعلمين
+    if (teachersRes.status === "fulfilled" && !teachersRes.value.error) {
+      const count = teachersRes.value.count ?? 0;
+      if (statEls.teachers) statEls.teachers.textContent = count.toLocaleString("ar-EG");
+    } else {
+      if (statEls.teachers) statEls.teachers.innerHTML = '<span class="stat-error" title="فشل التحميل">—</span>';
+    }
+
+    // الفصول الدراسية
+    if (classesRes.status === "fulfilled" && !classesRes.value.error) {
+      const count = classesRes.value.count ?? 0;
+      if (statEls.classes) statEls.classes.textContent = count.toLocaleString("ar-EG");
+    } else {
+      if (statEls.classes) statEls.classes.innerHTML = '<span class="stat-error" title="فشل التحميل">—</span>';
+    }
+
+    // سجلات الغياب اليوم
+    if (attendanceRes.status === "fulfilled" && !attendanceRes.value.error) {
+      const count = attendanceRes.value.count ?? 0;
+      if (statEls.attendance) statEls.attendance.textContent = count.toLocaleString("ar-EG");
+    } else {
+      if (statEls.attendance) statEls.attendance.innerHTML = '<span class="stat-error" title="فشل التحميل">—</span>';
+    }
+
+    const anyFailed = [studentsRes, teachersRes, classesRes, attendanceRes].some(function (r) {
+      return r.status === "rejected" || (r.value && r.value.error);
+    });
+
+    if (anyFailed) {
+      showToast("تعذر تحميل بعض الإحصائيات، يرجى التحقق من الاتصال", "warning");
+    } else if (isManual) {
+      showToast("تم تحديث إحصائيات لوحة التحكم بنجاح", "success");
+    }
+  } catch (err) {
+    Object.values(statEls).forEach(function (el) {
+      if (el) el.innerHTML = '<span class="stat-error" title="فشل الاتصال">—</span>';
+    });
+    showToast("تعذر الاتصال بقاعدة البيانات", "error");
+  } finally {
+    if (refreshBtn) refreshBtn.classList.remove("loading");
+  }
+};
+
+window.loadDashboardAnnouncements = async function () {
+  const container = document.getElementById("announcementsList");
+  if (!container) return;
+
+  container.innerHTML = '<div class="announcement-empty">جارٍ جلب آخر الإعلانات والتعاميم...</div>';
+
+  try {
+    const { data, error } = await supabaseClient
+      .from("announcements")
+      .select("id, title, content, target_audience, created_at, published")
+      .eq("published", true)
+      .order("created_at", { ascending: false })
+      .limit(3);
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) {
+      container.innerHTML =
+        '<div class="announcement-empty">' +
+        '<span style="font-size: 24px; display: block; margin-bottom: 6px;">📢</span>' +
+        "لا توجد إعلانات أو تعاميم منشورة حالياً في المدرسة." +
+        "</div>";
+      return;
+    }
+
+    container.innerHTML = data
+      .map(function (item) {
+        const dateFormatted = item.created_at
+          ? new Date(item.created_at).toLocaleDateString("ar-EG", {
+              year: "numeric",
+              month: "short",
+              day: "numeric"
+            })
+          : "اليوم";
+
+        const audienceBadge = item.target_audience
+          ? '<span class="audience-badge">' + escapeHtml(item.target_audience) + "</span>"
+          : "";
+
+        return (
+          '<article class="announcement-card">' +
+          '<div class="announcement-card-header">' +
+          "<h4>" +
+          escapeHtml(item.title || "إعلان مدرسي") +
+          "</h4>" +
+          '<div class="announcement-meta">' +
+          audienceBadge +
+          "<span>📅 " +
+          dateFormatted +
+          "</span>" +
+          "</div>" +
+          "</div>" +
+          '<p class="announcement-content">' +
+          escapeHtml(item.content || "") +
+          "</p>" +
+          "</article>"
+        );
+      })
+      .join("");
+  } catch (err) {
+    container.innerHTML =
+      '<div class="announcement-error">' +
+      "<span>تعذر تحميل الإعلانات المدرسية حالياً.</span>" +
+      '<button class="btn-retry" onclick="window.loadDashboardAnnouncements()">إعادة المحاولة</button>' +
+      "</div>";
+  }
+};
 </script>
 
 </body>
